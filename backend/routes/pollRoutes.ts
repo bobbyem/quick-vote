@@ -10,6 +10,6 @@ const router = express.Router();
 router.get("/", getAllPolls);
 router.get("/:id", getPoll);
 router.post("/create", createPoll);
-router.put("/vote/:id", addVote);
+router.put("/vote/", addVote);
 
 export default router;

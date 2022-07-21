@@ -41,13 +41,11 @@ const createPoll = asyncHandler(async (req, res) => {
 //@route GET /api/polls/vote
 //@access Public
 const addVote = asyncHandler(async (req, res) => {
-  console.log(req.params);
-
-  if (!req.params.id || !req.body.vote) {
+  if (!req.body.id || req.body.vote < 0) {
     res.status(400).json({ message: "MISSING DATA" });
     return;
   }
-  const poll = await Poll.findByIdAndUpdate(req.params.id, {
+  const poll = await Poll.findByIdAndUpdate(req.body.id, {
     $push: { votes: req.body.vote },
   });
   res.status(200).json({ message: "Your vote was added" });
