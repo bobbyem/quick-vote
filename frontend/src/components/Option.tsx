@@ -1,7 +1,7 @@
 import { PrimeIcons } from "primereact/api";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setVote } from "../features/slices/appSlice";
+import { removeOption, setVote } from "../features/slices/appSlice";
 import { RootState } from "../features/store";
 
 interface OptionProps {
@@ -18,7 +18,14 @@ function Option(props: OptionProps) {
   return (
     <div className="flex justify-content-between border-1 mb-1 pr-2 pl-2">
       <h4 className="capitalize">{title}</h4>
-      {removable ? <i className="pi pi-trash flex align-items-center" /> : null}
+      {removable ? (
+        <i
+          className="pi pi-trash flex align-items-center cursor-pointer"
+          onClick={() => {
+            dispatch(removeOption(index));
+          }}
+        />
+      ) : null}
       {votable ? (
         <input
           className="cursor-pointer"

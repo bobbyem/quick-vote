@@ -40,7 +40,7 @@ function PollOptions() {
     <>
       <h2 className="text-center">{pollInfo.question}</h2>
       <section className="overflow-y-scroll mr-4 ml-4">
-        {options.length > 0 ? options.map((option, index) => { return (<Option key={index} title={option} votable={true} removable={false} index={index} />)}) :null}
+        {options.length > 0 ? options.map((option, index) => { return (<Option key={index} title={option} votable={false} removable={true} index={index} />)}) :null}
       </section>
     <section className="flex flex-column h-full justify-content-between">
       <div className="flex flex-column gap-3 pb-6 p-2">

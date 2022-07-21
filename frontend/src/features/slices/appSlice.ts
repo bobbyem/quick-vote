@@ -38,12 +38,22 @@ export const appSlice = createSlice({
     addOption(state, action) {
       state.pollInfo.options.push(action.payload);
     },
+    removeOption(state, action) {
+      const newOptions = [...state.pollInfo.options];
+      newOptions.splice(action.payload, 1);
+      state.pollInfo.options = newOptions;
+    },
     setVote(state, action) {
       state.vote = action.payload;
     },
   },
 });
 
-export const { setCreatorEmail, setPollInfo, addOption, setVote } =
-  appSlice.actions;
+export const {
+  setCreatorEmail,
+  setPollInfo,
+  addOption,
+  removeOption,
+  setVote,
+} = appSlice.actions;
 export default appSlice.reducer;
