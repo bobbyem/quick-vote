@@ -1,5 +1,5 @@
 import { Button } from "primereact/button";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { setCreatorEmail, setPollInfo } from "../features/slices/appSlice";
@@ -8,12 +8,14 @@ import { RootState } from "../features/store";
 function PollSetup() {
   const [email, setEmail] = useState("");
   const [question, setQuestion] = useState("");
+  const questionInput = useRef<HTMLInputElement>(null);
   const { creator, pollInfo } = useSelector(
     (state: RootState) => state.reducers.appReducer
   );
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  //useEffects
   useEffect(() => {
     if (creator.email) {
       setEmail(creator.email);
@@ -22,6 +24,15 @@ function PollSetup() {
       setQuestion(pollInfo.question);
     }
   }, [creator, pollInfo]);
+
+  //Functions
+  function handleNext(): void {
+    if (email && question) {
+      dispatch(setCreatorEmail(email));
+      dispatch(setPollInfo({ ...pollInfo, question: question }));
+      navigate("/polloptions");
+    }
+  }
 
   return (
     <div className="card text-xl pb-6 p-2">
@@ -32,6 +43,7 @@ function PollSetup() {
           Your email(for sending you the poll links)
         </label>
         <input
+          autoFocus
           value={email}
           id="email"
           type="email"
@@ -39,11 +51,17 @@ function PollSetup() {
           onChange={(e) => {
             setEmail(e.target.value);
           }}
+          onKeyDown={(e) => {
+            if (e.key === "Enter" && questionInput.current) {
+              questionInput.current.focus();
+            }
+          }}
         />
       </div>
       <div className="field">
         <label htmlFor="question">Poll Question(What are we voting on?)</label>
         <input
+          ref={questionInput}
           value={question}
           id="question"
           type="text"
@@ -51,15 +69,18 @@ function PollSetup() {
           onChange={(e) => {
             setQuestion(e.target.value);
           }}
+          onKeyDown={(e) => {
+            if (e.key === "Enter") {
+              handleNext();
+            }
+          }}
         />
       </div>
       <Button
         label="NEXT"
         disabled={email.length < 5 || question.length < 5 ? true : false}
         onClick={() => {
-          dispatch(setCreatorEmail(email));
-          dispatch(setPollInfo({ ...pollInfo, question: question }));
-          navigate("/polloptions");
+          handleNext();
         }}
       />
     </div>

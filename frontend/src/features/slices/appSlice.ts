@@ -50,6 +50,7 @@ export const appSlice = createSlice({
 });
 
 export const {
+  reset,
   setCreatorEmail,
   setPollInfo,
   addOption,

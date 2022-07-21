@@ -17,7 +17,7 @@ function App() {
         <Route path="/polloptions" element={<PollOptions />} />
         <Route path="/recipt" element={<Recipt />} />
         <Route path="/vote/:id" element={<Vote />} />
-        <Route path="/result" element={<Result />} />
+        <Route path="/result/:id" element={<Result />} />
       </Routes>
     </div>
   );

@@ -1,8 +1,8 @@
 import { Button } from "primereact/button";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import Option from "../components/Option";
 import {
   addVote,
@@ -13,12 +13,15 @@ import { AppDispatch, RootState } from "../features/store";
 
 function Vote() {
   const { id } = useParams();
+  const [voted, setVoted] = useState(false);
   const dispatch = useDispatch<AppDispatch>();
-  const { session } = useSelector(
+  const navigate = useNavigate();
+  const { session, status } = useSelector(
     (state: RootState) => state.reducers.sessionReducer
   );
   const { vote } = useSelector((state: RootState) => state.reducers.appReducer);
 
+  //UseEffects
   useEffect(() => {
     if (id) {
       dispatch(setPollId(id));
@@ -26,9 +29,17 @@ function Vote() {
     }
   }, [id]);
 
+  useEffect(() => {
+    if (voted) {
+      navigate(`/result/${id}`);
+    }
+  }, [voted]);
+
+  //Functions
   function handleSubmit() {
-    if (id && session && vote) {
+    if (id && session && !voted && (vote || vote) === 0) {
       const voteData = { id, vote };
+      setVoted(true);
       dispatch(addVote(voteData));
     }
   }
@@ -69,7 +80,11 @@ function Vote() {
       </section>
     );
   }
-  return null;
+  return (
+    <section>
+      <h1>No Poll found</h1>
+    </section>
+  );
 }
 
 export default Vote;

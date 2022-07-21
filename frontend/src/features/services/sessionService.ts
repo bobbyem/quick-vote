@@ -8,11 +8,18 @@ const fetchById = async (id: string) => {
 };
 
 const addVoteById = async (voteData: any) => {
-  const response = await axios.put("/api/polls/vote/" + voteData.id, {
-    voteData,
+  const { id, vote } = voteData;
+  const response = await axios.put("/api/polls/vote/", {
+    id,
+    vote,
   });
   return response.data;
 };
 
-const sessionService = { fetchById, addVoteById };
+const createPoll = async (polldata: {}) => {
+  const response = await axios.post(BASE_URL + "/create", polldata);
+  return response.data;
+};
+
+const sessionService = { fetchById, addVoteById, createPoll };
 export default sessionService;

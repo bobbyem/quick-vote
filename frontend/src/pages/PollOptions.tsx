@@ -1,19 +1,22 @@
 import { Button } from "primereact/button";
 import { InputText } from "primereact/inputtext";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import Option from "../components/Option";
-import { addOption } from "../features/slices/appSlice";
-import { RootState } from "../features/store";
+import { addOption, reset } from "../features/slices/appSlice";
+import { createPoll } from "../features/slices/sessionSlice";
+import { AppDispatch, RootState } from "../features/store";
 
 function PollOptions() {
   const [options, setOptions] = useState(Array<string>);
   const [option, setOption] = useState("");
+  const optionInput = useRef<HTMLInputElement>(null);
   const { pollInfo, creator } = useSelector(
     (state: RootState) => state.reducers.appReducer
   );
-  const dispatch = useDispatch();
+  const { session } = useSelector((state: RootState) => state.reducers.sessionReducer);
+  const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -25,6 +28,13 @@ function PollOptions() {
     }
   }, [pollInfo, creator]);
 
+  useEffect(() => {
+    if (session) {
+      //Navigate to recipt
+      navigate("/recipt")
+    }
+  },[session])
+
   function handleAdd(): void {
     if (options.includes(option)) {
       //Clear if duplication
@@ -34,6 +44,12 @@ function PollOptions() {
     dispatch(addOption(option.toLocaleLowerCase()));
     //Clear input
     setOption("");
+  }
+
+  function handleCreate(): void{
+    if (pollInfo.options && pollInfo.question.length > 1 && pollInfo.question && creator) {
+      dispatch(createPoll({creator,pollInfo}))
+    }
   }
 
   return (
@@ -56,12 +72,13 @@ function PollOptions() {
                 handleAdd();
               }
             }}
+            autoFocus={true}
           />
         <label htmlFor="option">{options.length < 2 ? "Please enter at least two options" : null}</label>
       </div>
       <div className="flex flex-column gap-3 p-2">
         <Button label="ADD" disabled={option.length === 0 ? true : false} onClick={handleAdd} />
-        <Button label="CREATE POLL" />
+        <Button label="CREATE POLL" onClick={handleCreate}/>
         </div>
       </section>
           </>
