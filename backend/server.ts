@@ -8,11 +8,11 @@ import path from "path";
 const app = express();
 const PORT = process.env.port || 3500;
 connectDB();
+
 app.use(cors({ origin: "*" }));
 app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
 app.use("/api/polls", router);
-
-app.listen(PORT, () => console.log(`Server listening on port ${PORT}`));
 
 //Serve frontend
 if (process.env.NODE_ENV === "production") {
@@ -26,3 +26,5 @@ if (process.env.NODE_ENV === "production") {
 } else {
   app.get("/", (req, res) => res.send("Please set to production"));
 }
+
+app.listen(PORT, () => console.log(`Server listening on port ${PORT}`));
