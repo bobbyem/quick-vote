@@ -78,6 +78,9 @@ export const sessionSlice = createSlice({
   name: "session",
   initialState,
   reducers: {
+    reset(state) {
+      return initialState;
+    },
     setPollId(state, action) {
       state.pollId = action.payload;
     },
@@ -99,7 +102,7 @@ export const sessionSlice = createSlice({
         state.session = action.payload;
       })
       .addCase(addVote.fulfilled, (state, action) => {
-        state.message = action.payload;
+        state.session = action.payload;
         state.status.pending = false;
         state.status.error = false;
         state.status.success = true;
@@ -117,5 +120,5 @@ export const sessionSlice = createSlice({
       });
   },
 });
-export const { setPollId } = sessionSlice.actions;
+export const { reset, setPollId } = sessionSlice.actions;
 export default sessionSlice.reducer;

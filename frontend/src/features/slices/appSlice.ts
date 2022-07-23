@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 export interface AppState {
   creator: {
@@ -9,6 +9,7 @@ export interface AppState {
     options: Array<string>;
   };
   vote: Number | null;
+  prevPolls: Array<string>;
 }
 
 const initialState: AppState = {
@@ -20,6 +21,7 @@ const initialState: AppState = {
     options: [],
   },
   vote: null,
+  prevPolls: [],
 };
 
 export const appSlice = createSlice({
@@ -27,7 +29,7 @@ export const appSlice = createSlice({
   initialState,
   reducers: {
     reset(state) {
-      state = initialState;
+      return initialState;
     },
     setCreatorEmail(state, action) {
       state.creator.email = action.payload;

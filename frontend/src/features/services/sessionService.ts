@@ -2,6 +2,7 @@ import axios from "axios";
 
 const BASE_URL = "/api/polls";
 
+//Services
 const fetchById = async (id: string) => {
   const response = await axios.get(BASE_URL + "/" + id);
   return response.data;
@@ -22,4 +23,5 @@ const createPoll = async (polldata: {}) => {
 };
 
 const sessionService = { fetchById, addVoteById, createPoll };
+
 export default sessionService;

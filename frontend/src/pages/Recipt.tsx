@@ -6,6 +6,7 @@ import { useDispatch } from "react-redux";
 import { setPollId } from "../features/slices/sessionSlice";
 import { Button } from "primereact/button";
 import { useNavigate } from "react-router-dom";
+import { reset } from "../features/slices/appSlice";
 
 function Recipt() {
   const [copied, setCopied] = useState(false);
@@ -20,6 +21,10 @@ function Recipt() {
       dispatch(setPollId(session._id));
     }
   }, [session, pollId]);
+
+  useEffect(() => {
+    dispatch(reset());
+  }, []);
 
   //Functions
   function handleCopy(URL: string): void {

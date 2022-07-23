@@ -37,11 +37,13 @@ function Vote() {
 
   //Functions
   function handleSubmit() {
-    if (id && session && !voted && (vote || vote) === 0) {
+    if (id && !voted && (vote || vote === 0)) {
       const voteData = { id, vote };
       setVoted(true);
       dispatch(addVote(voteData));
+      return;
     }
+    console.log(id, voted);
   }
 
   if (session) {
@@ -72,7 +74,7 @@ function Vote() {
         </section>
         <div className="flex flex-column gap-3 p-2">
           <Button
-            label="SUBMIT"
+            label={voted ? "Thanks for your vote!" : "SUBMIT"}
             disabled={vote === null ? true : false}
             onClick={handleSubmit}
           />

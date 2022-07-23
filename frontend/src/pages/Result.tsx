@@ -10,7 +10,12 @@ function Result() {
   const dispatch = useDispatch<AppDispatch>();
   useEffect(() => {
     if (id) {
-      dispatch(fetchPollById(id));
+      const interval = setInterval(() => {
+        dispatch(fetchPollById(id));
+      }, 5000);
+      return () => {
+        clearInterval(interval);
+      };
     }
   }, [id]);
   return <div>{<ResultDisplay />}</div>;
