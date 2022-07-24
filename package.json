@@ -7,6 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "client": "cd frontend && npm start",
     "server": "nodemon backend/server.ts",
+    "build": "cd frontend && npm run build",
     "start": "nodemon backend/server.ts",
     "dev": "concurrently \"npm run server\" \"npm run client\""
   },

@@ -17,7 +17,7 @@ function Start() {
       <div className="flex flex-column gap-3 pb-6 p-2"></div>
       <div className="flex flex-column gap-3 p-2">
         <Button
-          label="CREATE POLL"
+          label="CREATE A TROLL"
           onClick={() => {
             navigate("/pollsetup");
           }}
