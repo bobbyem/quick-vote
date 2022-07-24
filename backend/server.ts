@@ -6,7 +6,7 @@ import cors from "cors";
 import path from "path";
 
 const app = express();
-const PORT = process.env.port || 3500;
+const PORT = process.env.PORT || 3500;
 connectDB();
 
 app.use(cors({ origin: "*" }));
@@ -17,7 +17,6 @@ app.use("/api/polls", router);
 //Serve frontend
 if (process.env.NODE_ENV === "production") {
   app.use(express.static(path.join(__dirname, "..", "frontend/build")));
-  app.use(express.static("public"));
 
   app.get("*", (req, res) =>
     res.sendFile(
