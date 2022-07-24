@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "client": "cd frontend && npm start",
     "server": "nodemon backend/server.ts",
-    "heroku-postbuild": "cd frontend && npm run build",
+    "heroku-postbuild": "cd frontend && npm install && npm run build",
     "start": "nodemon backend/server.ts",
     "dev": "concurrently \"npm run server\" \"npm run client\""
   },
