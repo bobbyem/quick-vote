@@ -1,5 +1,6 @@
 import { Button } from "primereact/button";
 import { InputText } from "primereact/inputtext";
+import { ScrollPanel } from "primereact/scrollpanel";
 import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -48,25 +49,26 @@ function PollOptions() {
 
   function handleCreate(): void{
     if (pollInfo.options && pollInfo.question.length > 1 && pollInfo.question && creator) {
-      dispatch(createPoll({creator,pollInfo}))
+      dispatch(createPoll({pollInfo}))
     }
   }
 
   return (
-    <>
-      <h2 className="text-center">{pollInfo.question}</h2>
-      <section className="overflow-y-scroll mr-4 ml-4">
+    <section className="page justify-content-between fadein">
+      <h2 className="text-center h-full">{pollInfo.question}</h2>
+      
+      <ScrollPanel style={{maxHeight: "500px"}} className="p-0 custom-scroll pr-3">
         {options.length > 0 ? options.map((option, index) => { return (<Option key={index} title={option} votable={false} removable={true} index={index} />)}) :null}
-      </section>
-    <section className="flex flex-column h-full justify-content-between">
-      <div className="flex flex-column gap-3 pb-6 p-2">
+      </ScrollPanel>
+
+        <div className="flex flex-column gap-3 h-full justify-content-end">
         <InputText
           id="option"
           value={option}
           onChange={(e) => {
             setOption(e.target.value);
           }}
-            className="text-center text-6xl font-bold"
+            className="text-center text-4xl font-bold"
             onKeyDown={(e) => {
               if (e.key === "Enter") {
                 handleAdd();
@@ -75,13 +77,10 @@ function PollOptions() {
             autoFocus={true}
           />
         <label htmlFor="option">{options.length < 2 ? "Please enter at least two options" : null}</label>
-      </div>
-      <div className="flex flex-column gap-3 p-2">
-        <Button label="ADD" disabled={option.length === 0 ? true : false} onClick={handleAdd} />
-        <Button label="CREATE POLL" onClick={handleCreate}/>
+        <Button className="bg-pink-200" label="ADD" disabled={option.length === 0 ? true : false} onClick={handleAdd} />
+        <Button className="bg-pink-200" label="CREATE POLL" onClick={handleCreate}/>
         </div>
       </section>
-          </>
   );
 }
 

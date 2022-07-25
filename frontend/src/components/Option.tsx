@@ -16,7 +16,7 @@ function Option(props: OptionProps) {
   const { vote } = useSelector((state: RootState) => state.reducers.appReducer);
   const dispatch = useDispatch();
   return (
-    <div className="flex justify-content-between border-1 mb-1 pr-2 pl-2">
+    <div className="flex justify-content-between border-round border-1 border-400 mb-1 pr-2 pl-2 fadeindown">
       <h4 className="capitalize">{title}</h4>
       {removable ? (
         <i

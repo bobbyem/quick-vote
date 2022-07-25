@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "../features/store";
+import { ProgressBar } from "primereact/progressbar";
 
 interface ResultItemProps {
   option: string;
@@ -29,12 +30,12 @@ function ResultItem(props: ResultItemProps) {
     const percentage =
       total && sumary !== 0 ? Math.floor((sumary / total) * 100) : 0;
     return (
-      <div className="relative">
-        <h4 className="z-1">
+      <div className="p-1 bg-gray-50 border-round">
+        <h4>
           <span className="capitalize">{option} ||</span> has {sumary} votes{" "}
           {percentage}%
         </h4>
-        <div className="h-full w-full bg-orange-400 absolute z-0" />
+        <ProgressBar value={percentage} color="pink-200" />
       </div>
     );
   }

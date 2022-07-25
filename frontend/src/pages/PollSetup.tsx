@@ -35,7 +35,7 @@ function PollSetup() {
   }
 
   return (
-    <div className="card text-xl pb-6 p-2">
+    <section className="page justify-content-end fadein">
       <h5>Poll information</h5>
       <p>Each poll will be deleted after 24h</p>
       <div className="field">
@@ -65,7 +65,7 @@ function PollSetup() {
           value={question}
           id="question"
           type="text"
-          className="text-3xl text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+          className="input text-3xl text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
           onChange={(e) => {
             setQuestion(e.target.value);
           }}
@@ -77,13 +77,14 @@ function PollSetup() {
         />
       </div>
       <Button
+        className="bg-pink-200"
         label="NEXT"
         disabled={email.length < 5 || question.length < 5 ? true : false}
         onClick={() => {
           handleNext();
         }}
       />
-    </div>
+    </section>
   );
 }
 

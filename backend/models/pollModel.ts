@@ -2,9 +2,6 @@ import mongoose, { Schema } from "mongoose";
 
 const pollSchema = new Schema(
   {
-    creator: {
-      email: String,
-    },
     pollInfo: {
       question: String,
       options: [String],

@@ -25,12 +25,13 @@ const getPoll = asyncHandler(async (req, res) => {
 //@route GET /api/polls/create
 //@access Public
 const createPoll = asyncHandler(async (req, res) => {
-  if (!req.body.creator || !req.body.pollInfo) {
-    res.status(400).json({ message: "MISSING DATA" });
+  console.log(req.body);
+
+  if (!req.body.pollInfo) {
+    res.status(400).json({ message: "MISSING CATS" });
     return;
   }
   const poll = await Poll.create({
-    creator: req.body.creator,
     pollInfo: req.body.pollInfo,
     votes: [],
   });

@@ -18,7 +18,11 @@ function Result() {
       };
     }
   }, [id]);
-  return <div>{<ResultDisplay />}</div>;
+  return (
+    <div className="page justify-content-center fadein">
+      {<ResultDisplay />}
+    </div>
+  );
 }
 
 export default Result;

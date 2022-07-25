@@ -51,7 +51,7 @@ function Vote() {
     const { question, options } = pollInfo;
 
     return (
-      <section className="flex flex-column h-full justify-content-between">
+      <section className="page justify-content-between fadein">
         <h1 className="text-center">Vote</h1>
         <p className="text-center text-xs">
           pollId: {id ? id : "You are missing a valid Poll id"}
@@ -74,6 +74,8 @@ function Vote() {
         </section>
         <div className="flex flex-column gap-3 p-2">
           <Button
+            icon="pi pi-check-circle"
+            className="bg-pink-200"
             label={voted ? "Thanks for your vote!" : "SUBMIT"}
             disabled={vote === null ? true : false}
             onClick={handleSubmit}
