@@ -32,6 +32,8 @@ function Mailer(props: MailerProps) {
 
   function sendEmail(): void {
     if (message && email && !emailSent) {
+      console.log(process.env.REACT_APP_SERVICE_ID);
+
       const templateParams = {
         message,
         email,
