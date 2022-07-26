@@ -23,6 +23,7 @@ export interface SessionState {
     error: boolean;
     success: boolean;
   };
+  emailSent: boolean;
 }
 
 //Variables
@@ -35,6 +36,7 @@ const initialState: SessionState = {
     error: false,
     success: false,
   },
+  emailSent: false,
 };
 
 //Thunk Functions
@@ -84,6 +86,9 @@ export const sessionSlice = createSlice({
     setPollId(state, action) {
       state.pollId = action.payload;
     },
+    setEmailSent(state, action) {
+      state.emailSent = action.payload;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -120,5 +125,7 @@ export const sessionSlice = createSlice({
       });
   },
 });
-export const { reset, setPollId } = sessionSlice.actions;
+
+export const { reset, setPollId, setEmailSent } = sessionSlice.actions;
+
 export default sessionSlice.reducer;

@@ -8,24 +8,28 @@ import { setPollId } from "../features/slices/sessionSlice";
 import { Button } from "primereact/button";
 import { useNavigate } from "react-router-dom";
 import { reset } from "../features/slices/appSlice";
+import Mailer from "../components/Mailer";
 
 function Recipt() {
   const [copied, setCopied] = useState(false);
-  const { session, pollId } = useSelector(
+  const { session, pollId, emailSent } = useSelector(
     (state: RootState) => state.reducers.sessionReducer
   );
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  //useEffects
   useEffect(() => {
     if (session && !pollId) {
       dispatch(setPollId(session._id));
     }
-  }, [session, pollId]);
-
-  useEffect(() => {
-    dispatch(reset());
-  }, []);
+    if (emailSent) {
+      dispatch(reset());
+    }
+    if (!session) {
+      navigate("/");
+    }
+  }, [session, pollId, emailSent]);
 
   //Functions
   function handleCopy(URL: string): void {
@@ -40,7 +44,7 @@ function Recipt() {
   }
 
   if (session) {
-    const URL = `https://quickvote/vote/${session._id}`;
+    const URL = `https://quick-vote-poll.herokuapp.com/vote/${session._id}`;
     return (
       <section className="page justify-content-between fadein">
         <h1>{session.pollInfo.question}</h1>
@@ -88,6 +92,7 @@ function Recipt() {
             }}
           />
         </section>
+        <Mailer URL={URL} />
       </section>
     );
   }

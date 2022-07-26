@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import Option from "../components/Option";
+import { addToPrevPolls } from "../features/slices/appSlice";
 import {
   addVote,
   fetchPollById,
@@ -19,7 +20,9 @@ function Vote() {
   const { session, status } = useSelector(
     (state: RootState) => state.reducers.sessionReducer
   );
-  const { vote } = useSelector((state: RootState) => state.reducers.appReducer);
+  const { vote, prevPolls } = useSelector(
+    (state: RootState) => state.reducers.appReducer
+  );
 
   //UseEffects
   useEffect(() => {
@@ -33,7 +36,10 @@ function Vote() {
     if (voted) {
       navigate(`/result/${id}`);
     }
-  }, [voted]);
+    if (id && prevPolls.includes(id)) {
+      navigate(`/result/${id}`);
+    }
+  }, [voted, prevPolls]);
 
   //Functions
   function handleSubmit() {
@@ -41,6 +47,7 @@ function Vote() {
       const voteData = { id, vote };
       setVoted(true);
       dispatch(addVote(voteData));
+      dispatch(addToPrevPolls(id));
       return;
     }
     console.log(id, voted);

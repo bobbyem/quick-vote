@@ -1,5 +1,8 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { stat } from "fs";
+import appServices from "../services/appService";
 
+//Interfaces types
 export interface AppState {
   creator: {
     email: string;
@@ -12,6 +15,11 @@ export interface AppState {
   prevPolls: Array<string>;
 }
 
+//Variables
+const prevPolls = localStorage.getItem("_prevPolls")
+  ? JSON.parse(localStorage.getItem("_prevPolls") || "")
+  : null;
+
 const initialState: AppState = {
   creator: {
     email: "bobbyem@gmail.com",
@@ -21,9 +29,19 @@ const initialState: AppState = {
     options: [],
   },
   vote: null,
-  prevPolls: [],
+  prevPolls: prevPolls ? prevPolls : [],
 };
 
+//thunkFunctions
+export const addToPrevPolls = createAsyncThunk(
+  "app/addToPrevPolls",
+  async (pollId: string) => {
+    const response = await appServices.addToPrevPolls(pollId);
+    return response;
+  }
+);
+
+//Slice
 export const appSlice = createSlice({
   name: "app",
   initialState,
@@ -49,6 +67,11 @@ export const appSlice = createSlice({
       state.vote = action.payload;
     },
   },
+  extraReducers: (builder) => {
+    builder.addCase(addToPrevPolls.fulfilled, (state, action) => {
+      state.prevPolls = action.payload;
+    });
+  },
 });
 
 export const {
@@ -59,4 +82,5 @@ export const {
   removeOption,
   setVote,
 } = appSlice.actions;
+
 export default appSlice.reducer;

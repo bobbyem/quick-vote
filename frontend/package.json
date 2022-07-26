@@ -4,6 +4,7 @@
   "proxy": "http://localhost:3500",
   "private": true,
   "dependencies": {
+    "@emailjs/browser": "^3.6.2",
     "@reduxjs/toolkit": "^1.8.3",
     "@testing-library/jest-dom": "^5.16.4",
     "@testing-library/react": "^13.3.0",
@@ -15,6 +16,8 @@
     "@types/react-redux": "^7.1.24",
     "axios": "^0.27.2",
     "chart.js": "^3.8.0",
+    "dotenv": "^16.0.1",
+    "emailjs-com": "^3.2.0",
     "primeflex": "^3.2.1",
     "primeicons": "^5.0.0",
     "primereact": "^8.2.0",

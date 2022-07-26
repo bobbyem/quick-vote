@@ -25,8 +25,6 @@ const getPoll = asyncHandler(async (req, res) => {
 //@route GET /api/polls/create
 //@access Public
 const createPoll = asyncHandler(async (req, res) => {
-  console.log(req.body);
-
   if (!req.body.pollInfo) {
     res.status(400).json({ message: "MISSING CATS" });
     return;
