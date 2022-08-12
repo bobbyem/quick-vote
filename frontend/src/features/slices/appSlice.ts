@@ -22,7 +22,7 @@ const prevPolls = localStorage.getItem("_prevPolls")
 
 const initialState: AppState = {
   creator: {
-    email: "bobbyem@gmail.com",
+    email: "",
   },
   pollInfo: {
     question: "",

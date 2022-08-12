@@ -17,9 +17,13 @@ function Start() {
 
   return (
     <section className="page justify-content-end fadein">
-      <h2 className=" flex  justify-content-center  align-content-center align-items-center h-full">
-        Polls made quick and easy!
-      </h2>
+      <div className="flex flex-column h-full align-items-center justify-content-center">
+        <h2 className="flex  justify-content-center  align-content-center">
+          Polls made Quick and easy!
+        </h2>
+        <h4 className="title-roller">No account needed</h4>
+        <h4 className="title-roller">No storing of personal data</h4>
+      </div>
       <div className="flex flex-column gap-3 p-2">
         <Button
           icon="pi pi-align-right"

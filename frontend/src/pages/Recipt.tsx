@@ -47,28 +47,32 @@ function Recipt() {
     const URL = `https://quick-vote-poll.herokuapp.com/vote/${session._id}`;
     return (
       <section className="page justify-content-between fadein">
-        <h1>{session.pollInfo.question}</h1>
-        <p>Poll Id: {session._id}</p>
-        <h1>Options:</h1>
-
-        <ScrollPanel style={{ width: "100%", height: "200px" }}>
-          {session.pollInfo.options.map((option, index) => {
-            return (
-              <h4 key={index} className="capitalize">
-                - {option}
-              </h4>
-            );
-          })}
-        </ScrollPanel>
-
-        <h1 className="overflow-hidden text-overflow-ellipsis">
-          <span
-            className="underline cursor-pointer"
-            onClick={() => handleVote(session._id)}
-          >
-            {URL}
-          </span>
-        </h1>
+        <div className="flex flex-column justify-content-center h-full">
+          <h2>
+            <span className="text-base">Poll question: </span>
+            <br></br>
+            {session.pollInfo.question}
+          </h2>
+          <p className="text-xs">Poll Id: {session._id}</p>
+          <h2 className="text-base">Options:</h2>
+          <ScrollPanel style={{ width: "100%", height: "200px" }}>
+            {session.pollInfo.options.map((option, index) => {
+              return (
+                <h4 key={index} className="capitalize">
+                  - {option}
+                </h4>
+              );
+            })}
+          </ScrollPanel>
+          <h1 className="overflow-hidden text-overflow-ellipsis">
+            <span
+              className="underline cursor-pointer"
+              onClick={() => handleVote(session._id)}
+            >
+              {URL}
+            </span>
+          </h1>
+        </div>
 
         <section className="flex flex-column w-full gap-2">
           <Button

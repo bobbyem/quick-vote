@@ -37,10 +37,10 @@ function PollSetup() {
   return (
     <section className="page justify-content-end fadein">
       <h5>Poll information</h5>
-      <p>Each poll will be deleted after 24h</p>
+      <p className="text-xs">Polls will be deleted after 24hs</p>
       <div className="field">
-        <label htmlFor="email">
-          Your email(for sending you the poll links)
+        <label htmlFor="email" className="text-xl">
+          Your email
         </label>
         <input
           autoFocus
@@ -59,7 +59,10 @@ function PollSetup() {
         />
       </div>
       <div className="field">
-        <label htmlFor="question">Poll Question(What are we voting on?)</label>
+        <label htmlFor="question" className="text-xl">
+          Poll Question{" "}
+          <span className="text-sm">(What are we voting on?)</span>
+        </label>
         <input
           ref={questionInput}
           value={question}
